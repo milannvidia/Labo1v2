@@ -12,9 +12,9 @@ public class RR extends Scheduler{
     }
 
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> para) {
+    public PriorityQueue<Process> schedule(Queue<Process> queue) {
         Queue<Process> q = new LinkedList<>();
-        for (Process p : para) {
+        for (Process p : queue) {
             q.add(new Process(p));
         }
         PriorityQueue<Process> result = new PriorityQueue<>();
@@ -56,9 +56,9 @@ public class RR extends Scheduler{
             }
         }
 
-        waittime = waittime / para.size();
-        normtat = normtat / para.size();
-        tat = tat / para.size();
+        waittime = waittime / queue.size();
+        normtat = normtat / queue.size();
+        tat = tat / queue.size();
 
 
 

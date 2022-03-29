@@ -12,9 +12,9 @@ public class MultiLevelFeedbackModeI extends Scheduler{
     }
 
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> para) {
+    public PriorityQueue<Process> schedule(Queue<Process> queue) {
         Queue<Process> q = new LinkedList<>();
-        for (Process p : para) {
+        for (Process p : queue) {
             q.add(new Process(p));
         }
         Queue<Process> queue1 = new LinkedList();
@@ -91,9 +91,9 @@ public class MultiLevelFeedbackModeI extends Scheduler{
             }
         }
 
-        waittime = waittime / para.size();
-        normtat = normtat / para.size();
-        tat = tat / para.size();
+        waittime = waittime / queue.size();
+        normtat = normtat / queue.size();
+        tat = tat / queue.size();
 
         System.out.println("Multilevel feedback met waarde q = i");
         System.out.println("De gemiddelde wachttijd is: " + waittime);
