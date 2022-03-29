@@ -143,8 +143,8 @@ public class Main extends Application {
 
         while (!firstinfirstout.isEmpty()) {
             process = firstinfirstout.poll();
-            waitTime += process.getWaittime();
-            normTAT += process.getNormtat();
+            waitTime += process.getWaitTime();
+            normTAT += process.getNormTAT();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -164,8 +164,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -185,8 +185,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -206,8 +206,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -232,8 +232,8 @@ public class Main extends Application {
         procentSize = processen3.size() / 100;
         while (!firstinfirstout.isEmpty()) {
             process = firstinfirstout.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -252,8 +252,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -272,8 +272,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -292,8 +292,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -319,8 +319,8 @@ public class Main extends Application {
         procentSize = processen1.size() / 100;
         while (!firstinfirstout.isEmpty()) {
             process = firstinfirstout.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -339,8 +339,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -359,8 +359,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
@@ -379,8 +379,8 @@ public class Main extends Application {
         waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normTAT += process.getNormtat();
-            waitTime += process.getWaittime();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
             if (amount % procentSize == 0 && amount != 0) {
                 normTAT = normTAT / procentSize;
                 waitTime = waitTime / procentSize;
