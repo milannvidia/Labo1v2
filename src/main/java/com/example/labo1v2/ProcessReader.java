@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 
 
 
-public class ProcessFactory {
+public class ProcessReader {
     public Queue<Process> leesProcessen(String s) throws SAXException, IOException, ParserConfigurationException {
         Queue<Process> processen= new LinkedList<>();
         File file;
