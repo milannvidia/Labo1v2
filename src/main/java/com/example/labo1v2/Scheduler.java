@@ -10,7 +10,5 @@ public abstract class Scheduler {
 
     public abstract PriorityQueue<Process> schedule(Queue<Process> q);
 
-    public abstract PriorityQueue<Process> schedule(Queue<Process> queue, int slice);
-
     public abstract double[] getParameters();
 }

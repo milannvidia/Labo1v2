@@ -70,11 +70,6 @@ public class SRT extends Scheduler {
     }
 
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> q, int slice) {
-        return schedule(q);
-    }
-
-    @Override
     public double[] getParameters() {
         double [] temp = new double[3];
         temp[0]= waittime;

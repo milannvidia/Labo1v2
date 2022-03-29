@@ -48,11 +48,6 @@ public class SJF extends Scheduler{
         }
 
         @Override
-        public PriorityQueue<Process> schedule(Queue<Process> queue, int slice){
-            return schedule(queue);
-        }
-
-        @Override
         public double[] getParameters(){
             double [] temp = new double[3];
             temp[0]= waittime;
