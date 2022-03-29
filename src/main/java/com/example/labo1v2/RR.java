@@ -34,9 +34,9 @@ public class RR extends Scheduler{
             if (p.getServiceTime() <= delta) {
                 count += p.getServiceTime();
                 while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
-                    Process temp = q.poll();
-                    temp.setStartTime(count);
-                    waitingQueue.add(temp);
+                    Process current = q.poll();
+                    current.setStartTime(count);
+                    waitingQueue.add(current);
                 }
                 p.setEndTime(count);
                 p.calculate();
@@ -47,9 +47,9 @@ public class RR extends Scheduler{
             } else {
                 count += delta;
                 while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
-                    Process temp = q.poll();
-                    temp.setStartTime(count);
-                    waitingQueue.add(temp);
+                    Process current = q.poll();
+                    current.setStartTime(count);
+                    waitingQueue.add(current);
                 }
                 p.setServiceTime(p.getServiceTime() - delta);
                 waitingQueue.add(p);
@@ -67,10 +67,10 @@ public class RR extends Scheduler{
 
     @Override
     public double[] getParameters() {
-        double [] temp = new double[3];
-        temp[0]= waittime;
-        temp[1]= normtat;
-        temp[2] = tat;
-        return temp;
+        double [] current = new double[3];
+        current[0]= waittime;
+        current[1]= normtat;
+        current[2] = tat;
+        return current;
     }
 }

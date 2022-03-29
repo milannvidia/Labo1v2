@@ -24,69 +24,69 @@ public class MultiLevelFeedbackModeI extends Scheduler{
         PriorityQueue<Process> result = new PriorityQueue<>();
         int count = 0;
         while (!q.isEmpty() || !queue1.isEmpty() || !queue2.isEmpty() || !queue3.isEmpty() || !queue4.isEmpty()) {
-            Process temp = new Process();
+            Process current = new Process();
             if (queue1.isEmpty() && queue2.isEmpty() && queue3.isEmpty() && queue4.isEmpty() && !q.isEmpty()) {
-                temp = q.poll();
-                count = temp.getArrivalTime();
-                temp.setArrivalTime(count);
-                queue1.add(temp);
+                current = q.poll();
+                count = current.getArrivalTime();
+                current.setArrivalTime(count);
+                queue1.add(current);
             }
             while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
-                temp = q.poll();
-                temp.setStartTime(count);
-                queue1.add(temp);
+                current = q.poll();
+                current.setStartTime(count);
+                queue1.add(current);
             }
             if (!queue1.isEmpty()) {
-                temp = queue1.poll();
-                if (temp.getServiceTime() <= 1) {
+                current = queue1.poll();
+                if (current.getServiceTime() <= 1) {
                     count += 1;
-                    temp.setEndTime(count);
-                    temp.calculate();
-                    result.add(temp);
-                    update(temp);
+                    current.setEndTime(count);
+                    current.calculate();
+                    result.add(current);
+                    update(current);
                 } else {
                     count += 1;
-                    temp.decreaseServiceTime(1);
-                    queue2.add(temp);
+                    current.decreaseServiceTime(1);
+                    queue2.add(current);
                 }
             } else if (!queue2.isEmpty()) {
-                temp = queue2.poll();
-                if (temp.getServiceTime() <= 2) {
-                    count += temp.getServiceTime();
-                    temp.setEndTime(count);
-                    temp.calculate();
-                    result.add(temp);
-                    update(temp);
+                current = queue2.poll();
+                if (current.getServiceTime() <= 2) {
+                    count += current.getServiceTime();
+                    current.setEndTime(count);
+                    current.calculate();
+                    result.add(current);
+                    update(current);
                 } else {
                     count += 2;
-                    temp.decreaseServiceTime(2);
-                    queue3.add(temp);
+                    current.decreaseServiceTime(2);
+                    queue3.add(current);
                 }
             } else if (!queue3.isEmpty()) {
-                temp = queue3.poll();
-                if (temp.getServiceTime() <= 3) {
-                    count += temp.getServiceTime();
-                    temp.setEndTime(count);
-                    temp.calculate();
-                    result.add(temp);
-                    update(temp);
+                current = queue3.poll();
+                if (current.getServiceTime() <= 3) {
+                    count += current.getServiceTime();
+                    current.setEndTime(count);
+                    current.calculate();
+                    result.add(current);
+                    update(current);
                 } else {
                     count += 3;
-                    temp.decreaseServiceTime(3);
-                    queue4.add(temp);
+                    current.decreaseServiceTime(3);
+                    queue4.add(current);
                 }
             } else if (!queue4.isEmpty()) {
-                temp = queue4.poll();
-                if (temp.getServiceTime() <= 4) {
-                    count += temp.getServiceTime();
-                    temp.setEndTime(count);
-                    temp.calculate();
-                    result.add(temp);
-                    update(temp);
+                current = queue4.poll();
+                if (current.getServiceTime() <= 4) {
+                    count += current.getServiceTime();
+                    current.setEndTime(count);
+                    current.calculate();
+                    result.add(current);
+                    update(current);
                 } else {
                     count += 4;
-                    temp.decreaseServiceTime(4);
-                    queue4.add(temp);
+                    current.decreaseServiceTime(4);
+                    queue4.add(current);
                 }
             }
         }

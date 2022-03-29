@@ -12,29 +12,29 @@ public class FIFO extends Scheduler{
 
         int count = 0;
         int wait = 0;
-        Process temp;
+        Process current;
         PriorityQueue<Process> result = new PriorityQueue();
 
         while (!queue.isEmpty()) {
-            temp = queue.poll();
-            if (count < temp.getArrivalTime()) {
-                count = temp.getArrivalTime() + temp.getServiceTime();
-                temp.setStartTime(temp.getArrivalTime());
-                temp.setEndTime(count);
-                temp.calculate(); // met deze methode ga je in het process zelf de waarden gaan uitrekenen
-                result.add(temp);
-                waittime += temp.getWaitTime();
-                normtat += temp.getNormTAT();
-                tat += temp.getTAT();
+            current = queue.poll();
+            if (count < current.getArrivalTime()) {
+                count = current.getArrivalTime() + current.getServiceTime();
+                current.setStartTime(current.getArrivalTime());
+                current.setEndTime(count);
+                current.calculate(); // met deze methode ga je in het process zelf de waarden gaan uitrekenen
+                result.add(current);
+                waittime += current.getWaitTime();
+                normtat += current.getNormTAT();
+                tat += current.getTAT();
             } else {
-                temp.setStartTime(count);
-                count += temp.getServiceTime();
-                temp.setEndTime(count);
-                temp.calculate();
-                result.add(temp);
-                waittime += temp.getWaitTime();
-                normtat += temp.getNormTAT();
-                tat += temp.getTAT();
+                current.setStartTime(count);
+                count += current.getServiceTime();
+                current.setEndTime(count);
+                current.calculate();
+                result.add(current);
+                waittime += current.getWaitTime();
+                normtat += current.getNormTAT();
+                tat += current.getTAT();
             }
 
         }

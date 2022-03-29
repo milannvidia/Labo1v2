@@ -15,42 +15,41 @@ public class HRRN extends Scheduler{
         Queue<Process> waitingQueue = new LinkedList<>();
         PriorityQueue<Process> result = new PriorityQueue<>();
         int count = 0;
-        Process p;
         while (!q.isEmpty() || !waitingQueue.isEmpty()) {
             while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
                 Process temp = q.poll();
                 temp.setStartTime(count);
                 waitingQueue.add(temp);
             }
-            Process temp = new Process();
+            Process current = new Process();
             if (!waitingQueue.isEmpty()) {
                 double largestTat = waitingQueue.peek().getNormTAT();
                 for (Process process : waitingQueue) {
                     process.setEndTime(count + process.getServiceTime());
                     process.calculate();
                     if (largestTat < process.getNormTAT()) {
-                        temp = process;
+                        current = process;
                         largestTat = process.getNormTAT();
                     }
                 }
-                waitingQueue.remove(temp);
-                result.add(temp);
-                waittime += temp.getWaitTime();
-                normtat += temp.getNormTAT();
-                tat += temp.getTAT();
+                waitingQueue.remove(current);
+                result.add(current);
+                waittime += current.getWaitTime();
+                normtat += current.getNormTAT();
+                tat += current.getTAT();
             } else {
-                temp = q.poll();
-                count = temp.getArrivalTime();
-                temp.setStartTime(count);
-                temp.setEndTime(count + temp.getServiceTime());
-                temp.calculate();
-                result.add(temp);
-                waittime += temp.getWaitTime();
-                normtat += temp.getNormTAT();
-                tat += temp.getTAT();
+                current = q.poll();
+                count = current.getArrivalTime();
+                current.setStartTime(count);
+                current.setEndTime(count + current.getServiceTime());
+                current.calculate();
+                result.add(current);
+                waittime += current.getWaitTime();
+                normtat += current.getNormTAT();
+                tat += current.getTAT();
             }
 
-            count += temp.getServiceTime();
+            count += current.getServiceTime();
         }
 
         waittime = waittime / queue.size();
@@ -67,10 +66,10 @@ public class HRRN extends Scheduler{
 
     @Override
     public double[] getParameters() {
-        double [] temp = new double[3];
-        temp[0]= waittime;
-        temp[1]= normtat;
-        temp[2] = tat;
-        return temp;
+        double [] current = new double[3];
+        current[0]= waittime;
+        current[1]= normtat;
+        current[2] = tat;
+        return current;
     }
 }

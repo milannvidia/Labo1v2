@@ -71,10 +71,10 @@ public class SRT extends Scheduler {
 
     @Override
     public double[] getParameters() {
-        double [] temp = new double[3];
-        temp[0]= waittime;
-        temp[1]= normtat;
-        temp[2] = tat;
-        return temp;
+        double [] current = new double[3];
+        current[0]= waittime;
+        current[1]= normtat;
+        current[2] = tat;
+        return current;
     }
 }

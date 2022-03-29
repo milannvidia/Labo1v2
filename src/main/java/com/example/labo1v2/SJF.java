@@ -17,22 +17,22 @@ public class SJF extends Scheduler{
         PriorityQueue<Process> finishedProcesses = new PriorityQueue<>();
         PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10,(a, b)->a.getServiceTime()-b.getServiceTime());
 
-        Process temp;
+        Process current;
         int count=0;
 
         while (finishedProcesses.size() != q.size()){
             while (queue.peek() != null && queue.peek().getArrivalTime()<=count)
                 waitingProcesses.add(queue.poll());
                 if (!waitingProcesses.isEmpty()) {
-                    temp = waitingProcesses.poll();
-                    temp.setStartTime(count);
-                    count += temp.getServiceTime();
-                    temp.setEndTime(count);
-                    temp.calculate();
-                    finishedProcesses.add(temp);
-                    waittime += temp.getWaitTime();
-                    normtat += temp.getNormTAT();
-                    tat += temp.getTAT();
+                    current = waitingProcesses.poll();
+                    current.setStartTime(count);
+                    count += current.getServiceTime();
+                    current.setEndTime(count);
+                    current.calculate();
+                    finishedProcesses.add(current);
+                    waittime += current.getWaitTime();
+                    normtat += current.getNormTAT();
+                    tat += current.getTAT();
                 }else{
                     count++;
                 }
@@ -49,11 +49,11 @@ public class SJF extends Scheduler{
 
         @Override
         public double[] getParameters(){
-            double [] temp = new double[3];
-            temp[0]= waittime;
-            temp[1]= normtat;
-            temp[2] = tat;
-            return temp;
+            double [] current = new double[3];
+            current[0]= waittime;
+            current[1]= normtat;
+            current[2] = tat;
+            return current;
         }
     }
 
