@@ -3,16 +3,18 @@ import java.util.*;
 public class FIFO extends Scheduler{
     @Override
     public PriorityQueue<Process> schedule(Queue<Process> para) throws NullPointerException {
-        Queue<Process> q = new LinkedList<>();
-        for (Process p : para) {
-            q.add(new Process(p));
+        Queue<Process> queue = new LinkedList<>();
+        for (Process process : para) {
+            queue.add(new Process(process));
         }
-        PriorityQueue<Process> result = new PriorityQueue();
+
         int count = 0;
         int wait = 0;
         Process temp;
-        while (!q.isEmpty()) {
-            temp = q.poll();
+        PriorityQueue<Process> result = new PriorityQueue();
+
+        while (!queue.isEmpty()) {
+            temp = queue.poll();
             if (count < temp.getArrivaltime()) {
                 count = temp.getArrivaltime() + temp.getServicetime();
                 temp.setStartTime(temp.getArrivaltime());
