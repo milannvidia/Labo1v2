@@ -1,5 +1,3 @@
-package com.example.labo1v2;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

@@ -6,4 +6,6 @@ module com.example.labo1v2 {
 
     opens com.example.labo1v2 to javafx.fxml;
     exports com.example.labo1v2;
+    exports;
+    opens to
 }

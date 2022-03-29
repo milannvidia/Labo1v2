@@ -1,5 +1,3 @@
-package com.example.labo1v2;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -38,7 +36,7 @@ public class ProcessFactory {
         for (int temp = 0; temp < list.getLength(); temp++) {
             Process p = new Process();
             Node node = list.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {								//we willen een element node
+            if (node.getNodeType() == Node.ELEMENT_NODE) {	//we willen een element node
                 Element element = (Element) node;
                 NodeList children = element.getChildNodes();
                 for (int i = 0; i < children.getLength(); i++) {

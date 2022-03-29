@@ -1,5 +1,3 @@
-package com.example.labo1v2;
-
 import java.util.PriorityQueue;
 import java.util.Queue;
 
