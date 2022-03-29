@@ -26,413 +26,373 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        ProcessFactory p = new ProcessFactory();
-        Queue<java.lang.Process> processen = p.leesProcessen("20000");
-        Queue<java.lang.Process> processen2 = p.leesProcessen("10000");
-        Queue<java.lang.Process> processen3 = p.leesProcessen("50000");
-
 
         stage.setTitle("Process scheduler");
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis(0, 100, 10);
+        final NumberAxis x2 = new NumberAxis();
+        final NumberAxis y2 = new NumberAxis();
+        final NumberAxis x = new NumberAxis();
+        final NumberAxis y = new NumberAxis(0, 100, 10);
+        final NumberAxis x4 = new NumberAxis();
+        final NumberAxis y4 = new NumberAxis();
+        final NumberAxis x3 = new NumberAxis();
+        final NumberAxis y3 = new NumberAxis(0, 100, 10);
+        final NumberAxis x6 = new NumberAxis();
+        final NumberAxis y6 = new NumberAxis();
+        final NumberAxis x5 = new NumberAxis();
+        final NumberAxis y5 = new NumberAxis(0, 100, 10);
 
-        final NumberAxis xAxis2 = new NumberAxis();
-        final NumberAxis yAxis2 = new NumberAxis();
+        y.setLabel("Norm omlooptijd");
+        x.setLabel("Bedieningstijd");
+        y2.setLabel("Wachttijd");
+        x2.setLabel("Bedieningstijd");
+        y3.setLabel("Norm omlooptijd");
+        x3.setLabel("Bedieningstijd");
+        y4.setLabel("Wachttijd");
+        x4.setLabel("Bedieningstijd");
+        y5.setLabel("Norm omlooptijd");
+        x5.setLabel("Bedieningstijd");
+        y6.setLabel("Wachttijd");
+        x6.setLabel("Bedieningstijd");
 
-        final NumberAxis xAxis3 = new NumberAxis();
-        final NumberAxis yAxis3 = new NumberAxis(0, 100, 10);
-
-        final NumberAxis xAxis4 = new NumberAxis();
-        final NumberAxis yAxis4 = new NumberAxis();
-
-        final NumberAxis xAxis5 = new NumberAxis();
-        final NumberAxis yAxis5 = new NumberAxis(0, 100, 10);
-
-        final NumberAxis xAxis6 = new NumberAxis();
-        final NumberAxis yAxis6 = new NumberAxis();
-
-        xAxis.setLabel("Bedieningstijd");
-        yAxis.setLabel("Genormaliseerde omlooptijd");
-
-        xAxis2.setLabel("Bedieningstijd");
-        yAxis2.setLabel("Wachttijd [JIFFY]");
-
-        xAxis3.setLabel("Bedieningstijd");
-        yAxis3.setLabel("Genormaliseerde omlooptijd");
-
-        xAxis4.setLabel("Bedieningstijd");
-        yAxis4.setLabel("Wachttijd [JIFFY]");
-
-        xAxis5.setLabel("Bedieningstijd");
-        yAxis5.setLabel("Genormaliseerde omlooptijd");
-
-        xAxis6.setLabel("Bedieningstijd");
-        yAxis6.setLabel("Wachttijd [JIFFY]");
-
-        final LineChart<Number, Number> lineChart1 = new LineChart<Number, Number>(xAxis, yAxis);
-        final LineChart<Number, Number> lineChart2 = new LineChart<Number, Number>(xAxis2, yAxis2);
-        final LineChart<Number, Number> lineChart3 = new LineChart<Number, Number>(xAxis3, yAxis3);
-        final LineChart<Number, Number> lineChart4 = new LineChart<Number, Number>(xAxis4, yAxis4);
-        final LineChart<Number, Number> lineChart5 = new LineChart<Number, Number>(xAxis5, yAxis5);
-        final LineChart<Number, Number> lineChart6 = new LineChart<Number, Number>(xAxis6, yAxis6);
-
+        final LineChart<Number, Number> lineChart1 = new LineChart<Number, Number>(x, y);
         lineChart1.setTitle("Genormaliseerde TAT in functie van bedieningstijd /20000");
         lineChart1.setCreateSymbols(false);
 
+        final LineChart<Number, Number> lineChart2 = new LineChart<Number, Number>(x2, y2);
         lineChart2.setTitle("Wachttijd in functie van bedieningstijd /20000");
         lineChart2.setCreateSymbols(false);
 
+        final LineChart<Number, Number> lineChart3 = new LineChart<Number, Number>(x3, y3);
         lineChart3.setTitle("Genormaliseerde TAT in functie van bedieningstijd /10000");
         lineChart3.setCreateSymbols(false);
 
+        final LineChart<Number, Number> lineChart4 = new LineChart<Number, Number>(x4, y4);
         lineChart4.setTitle("Wachttijd in functie van bedieningstijd /10000");
         lineChart4.setCreateSymbols(false);
 
+        final LineChart<Number, Number> lineChart5 = new LineChart<Number, Number>(x5, y5);
         lineChart5.setTitle("Genormaliseerde TAT in functie van bedieningstijd /50000");
         lineChart5.setCreateSymbols(false);
 
+        final LineChart<Number, Number> lineChart6 = new LineChart<Number, Number>(x6, y6);
         lineChart6.setTitle("Wachttijd in functie van bedieningstijd /50000");
         lineChart6.setCreateSymbols(false);
 
-        XYChart.Series series11 = new XYChart.Series();
-        series11.setName("First come first serve");
+        XYChart.Series series1_1 = new XYChart.Series();
+        series1_1.setName("FIFO");
+        XYChart.Series series1_2 = new XYChart.Series();
+        series1_2.setName("RR");
+        XYChart.Series series1_3 = new XYChart.Series();
+        series1_3.setName("HRRN");
+        XYChart.Series series1_4 = new XYChart.Series();
+        series1_4.setName("MultilevelFeedback");
+        XYChart.Series series2_1 = new XYChart.Series();
+        series2_1.setName("FIFO");
+        XYChart.Series series2_2 = new XYChart.Series();
+        series2_2.setName("RR");
+        XYChart.Series series2_3 = new XYChart.Series();
+        series2_3.setName("HRRN");
+        XYChart.Series series2_4 = new XYChart.Series();
+        series2_4.setName("Multilevelfeedback");
+        XYChart.Series series3_1 = new XYChart.Series();
+        series3_1.setName("FIFO");
+        XYChart.Series series3_2 = new XYChart.Series();
+        series3_2.setName("RR");
+        XYChart.Series series3_3 = new XYChart.Series();
+        series3_3.setName("HRRN");
+        XYChart.Series series3_4 = new XYChart.Series();
+        series3_4.setName("Multilevelfeedback");
+        XYChart.Series series4_1 = new XYChart.Series();
+        series4_1.setName("FIFO");
+        XYChart.Series series4_2 = new XYChart.Series();
+        series4_2.setName("RR");
+        XYChart.Series series4_3 = new XYChart.Series();
+        series4_3.setName("HRRN");
+        XYChart.Series series4_4 = new XYChart.Series();
+        series4_4.setName("Multilevelfeedback");
+        XYChart.Series series5_1 = new XYChart.Series();
+        series5_1.setName("FIFO");
+        XYChart.Series series5_2 = new XYChart.Series();
+        series5_2.setName("RR");
+        XYChart.Series series5_3 = new XYChart.Series();
+        series5_3.setName("HRRN");
+        XYChart.Series series5_4 = new XYChart.Series();
+        series5_4.setName("Multilevelfeedback");
+        XYChart.Series series6_1 = new XYChart.Series();
+        series6_1.setName("FIFO");
+        XYChart.Series series6_2 = new XYChart.Series();
+        series6_2.setName("RR");
+        XYChart.Series series6_3 = new XYChart.Series();
+        series6_3.setName("HRRN");
+        XYChart.Series series6_4 = new XYChart.Series();
+        series6_4.setName("Multilevelfeedback");
 
-        XYChart.Series series12 = new XYChart.Series();
-        series12.setName("Round robin");
+        ProcessReader fact = new ProcessReader();
+        Queue<Process> processen1 = fact.leesProcessen("50000");
+        Queue<Process> processen2 = fact.leesProcessen("20000");
+        Queue<Process> processen3 = fact.leesProcessen("10000");
 
-        XYChart.Series series13 = new XYChart.Series();
-        series13.setName("Highest response ratio next");
+        Scheduler fifo = new FIFO();
+        PriorityQueue<Process> firstinfirstout = fifo.schedule(processen2);
 
-        XYChart.Series series14 = new XYChart.Series();
-        series14.setName("Multilevel feedback");
+        int procentSize = firstinfirstout.size() / 100;
+        double waitTime = 0;
+        Process process;
+        double normTAT = 0;
+        int amount = 0;
 
-
-        XYChart.Series series21 = new XYChart.Series();
-        series21.setName("First come first serve");
-
-        XYChart.Series series22 = new XYChart.Series();
-        series22.setName("Round robin");
-
-        XYChart.Series series23 = new XYChart.Series();
-        series23.setName("Highest response ratio next");
-
-        XYChart.Series series24 = new XYChart.Series();
-        series24.setName("Multilevel feedback");
-
-
-        XYChart.Series series31 = new XYChart.Series();
-        series31.setName("First come first serve");
-
-        XYChart.Series series32 = new XYChart.Series();
-        series32.setName("Round robin");
-
-        XYChart.Series series33 = new XYChart.Series();
-        series33.setName("Highest response ratio next");
-
-        XYChart.Series series34 = new XYChart.Series();
-        series34.setName("Multilevel feedback");
-
-
-        XYChart.Series series41 = new XYChart.Series();
-        series41.setName("First come first serve");
-
-        XYChart.Series series42 = new XYChart.Series();
-        series42.setName("Round robin");
-
-        XYChart.Series series43 = new XYChart.Series();
-        series43.setName("Highest response ratio next");
-
-        XYChart.Series series44 = new XYChart.Series();
-        series44.setName("Multilevel feedback");
-
-
-        XYChart.Series series51 = new XYChart.Series();
-        series51.setName("First come first serve");
-
-        XYChart.Series series52 = new XYChart.Series();
-        series52.setName("Round robin");
-
-        XYChart.Series series53 = new XYChart.Series();
-        series53.setName("Highest response ratio next");
-
-        XYChart.Series series54 = new XYChart.Series();
-        series54.setName("Multilevel feedback");
-
-
-        XYChart.Series series61 = new XYChart.Series();
-        series61.setName("First come first serve");
-
-        XYChart.Series series62 = new XYChart.Series();
-        series62.setName("Round robin");
-
-        XYChart.Series series63 = new XYChart.Series();
-        series63.setName("Highest response ratio next");
-
-        XYChart.Series series64 = new XYChart.Series();
-        series64.setName("Multilevel feedback");
-
-
-        Scheduler fcfs = new FirstComeFirstServed();
-        PriorityQueue<java.lang.Process> firstcomefirstserve = fcfs.schedule(processen);
-
-
-        double normtat = 0;
-        double waittime = 0;
-        int aantal = 0;
-        int percentielSize = firstcomefirstserve.size() / 100;
-        java.lang.Process process;
-        while (!firstcomefirstserve.isEmpty()) {
-            process = firstcomefirstserve.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series11.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series21.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+        while (!firstinfirstout.isEmpty()) {
+            process = firstinfirstout.poll();
+            waitTime += process.getWaittime();
+            normTAT += process.getNormtat();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_1.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_1.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                waitTime = 0;
+                normTAT = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        Scheduler rr = new RoundRobin(2);
-        PriorityQueue<java.lang.Process> roundrobin = rr.schedule(processen);
+        Scheduler rr = new RR(2);
+        PriorityQueue<Process> roundrobin = rr.schedule(processen2);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series12.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series22.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_2.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_2.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        Scheduler hrrn = new HighestResponseRatioNext();
-        PriorityQueue<java.lang.Process> highestresponserationext = hrrn.schedule(processen);
+        Scheduler hrrn = new HRRN();
+        PriorityQueue<Process> highestresponserationext = hrrn.schedule(processen2);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series13.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series23.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_3.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_3.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        Scheduler mlfb = new MultilevelFeedback2I();
-        PriorityQueue<java.lang.Process> multilevelfeedback = mlfb.schedule(processen);
+        Scheduler mlfb = new MultiLevelFeedbackModeII();
+        PriorityQueue<Process> multilevelfeedback = mlfb.schedule(processen2);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series14.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series24.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_4.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_4.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        double[] fcfs1 = fcfs.getParameters();
+        double[] fcfs1 = fifo.getParameters();
         double[] rr1 = rr.getParameters();
         double[] hrrn1 = hrrn.getParameters();
         double[] mlfb1 = mlfb.getParameters();
 
 
-        firstcomefirstserve = fcfs.schedule(processen2);
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
-        percentielSize = processen2.size() / 100;
-        while (!firstcomefirstserve.isEmpty()) {
-            process = firstcomefirstserve.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series31.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series41.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+        firstinfirstout = fifo.schedule(processen3);
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        procentSize = processen3.size() / 100;
+        while (!firstinfirstout.isEmpty()) {
+            process = firstinfirstout.poll();
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_1.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_1.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        roundrobin = rr.schedule(processen2);
+        roundrobin = rr.schedule(processen3);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series32.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series42.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_2.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_2.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        highestresponserationext = hrrn.schedule(processen2);
+        highestresponserationext = hrrn.schedule(processen3);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series33.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series43.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_3.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_3.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        multilevelfeedback = mlfb.schedule(processen2);
+        multilevelfeedback = mlfb.schedule(processen3);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series34.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series44.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_4.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_4.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        double[] fcfs12 = fcfs.getParameters();
+        double[] fcfs12 = fifo.getParameters();
         double[] rr2 = rr.getParameters();
         double[] hrrn2 = hrrn.getParameters();
         double[] mlfb2 = mlfb.getParameters();
 
 
 
-        firstcomefirstserve = fcfs.schedule(processen3);
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
-        percentielSize = processen3.size() / 100;
-        while (!firstcomefirstserve.isEmpty()) {
-            process = firstcomefirstserve.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series51.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series61.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+        firstinfirstout = fifo.schedule(processen1);
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        procentSize = processen1.size() / 100;
+        while (!firstinfirstout.isEmpty()) {
+            process = firstinfirstout.poll();
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_1.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_1.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        roundrobin = rr.schedule(processen3);
+        roundrobin = rr.schedule(processen1);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!roundrobin.isEmpty()) {
             process = roundrobin.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series52.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series62.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_2.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_2.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        highestresponserationext = hrrn.schedule(processen3);
+        highestresponserationext = hrrn.schedule(processen1);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!highestresponserationext.isEmpty()) {
             process = highestresponserationext.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series53.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series63.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_3.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_3.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        multilevelfeedback = mlfb.schedule(processen3);
+        multilevelfeedback = mlfb.schedule(processen1);
 
-        normtat = 0;
-        aantal = 0;
-        waittime = 0;
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
         while (!multilevelfeedback.isEmpty()) {
             process = multilevelfeedback.poll();
-            normtat += process.getNormtat();
-            waittime += process.getWaittime();
-            if (aantal % percentielSize == 0 && aantal != 0) {
-                normtat = normtat / percentielSize;
-                waittime = waittime / percentielSize;
-                series54.getData().add(new XYChart.Data(aantal / percentielSize, normtat));
-                series64.getData().add(new XYChart.Data(aantal / percentielSize, waittime));
-                normtat = 0;
-                waittime = 0;
+            normTAT += process.getNormtat();
+            waitTime += process.getWaittime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_4.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_4.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
             }
-            aantal++;
+            amount++;
         }
 
-        double[] fcfs3 = fcfs.getParameters();
+        double[] fcfs3 = fifo.getParameters();
         double[] rr3 = rr.getParameters();
         double[] hrrn3 = hrrn.getParameters();
         double[] mlfb3 = mlfb.getParameters();
@@ -499,12 +459,12 @@ public class Main extends Application {
         root.setCenter(vbox);
 
         Scene scene = new Scene(root, 1000, 800);
-        lineChart1.getData().addAll(series11, series12, series13, series14);
-        lineChart2.getData().addAll(series21, series22, series23, series24);
-        lineChart3.getData().addAll(series31, series32, series33, series34);
-        lineChart4.getData().addAll(series41, series42, series43, series44);
-        lineChart5.getData().addAll(series51, series52, series53, series54);
-        lineChart6.getData().addAll(series61, series62, series63, series64);
+        lineChart1.getData().addAll(series1_1, series1_2, series1_3, series1_4);
+        lineChart2.getData().addAll(series2_1, series2_2, series2_3, series2_4);
+        lineChart3.getData().addAll(series3_1, series3_2, series3_3, series3_4);
+        lineChart4.getData().addAll(series4_1, series4_2, series4_3, series4_4);
+        lineChart5.getData().addAll(series5_1, series5_2, series5_3, series5_4);
+        lineChart6.getData().addAll(series6_1, series6_2, series6_3, series6_4);
 
 
         stage.setScene(scene);
