@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 
 
 public class ProcessFactory {
-    public Queue<Process> leesProcessen(String s) throws SAXException, IOException, ParseConfigurationException, ParserConfigurationException {
+    public Queue<Process> leesProcessen(String s) throws SAXException, IOException, ParserConfigurationException {
         Queue<Process> processen= new LinkedList<>();
         File file;
         if (s.equals("10000")) {
