@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 //Highest Response Ratio Next
 public class HRRN extends Scheduler{
+
     @Override
     public PriorityQueue<Process> schedule(Queue<Process> para) {
         Queue<Process> q = new LinkedList<>();
