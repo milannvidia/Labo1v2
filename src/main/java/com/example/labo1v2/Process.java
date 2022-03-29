@@ -3,69 +3,69 @@ package com.example.labo1v2;
 public class Process implements Cloneable, Comparable {
 
     private int id;
-    private int arrivaltime;
-    private int servicetime;
-    private int starttime;
-    private int endtime;
-    private int tat;
-    private double normtat;
-    private int waittime;
-    private int servicetimeneeded;
+    private int arrivalTime;
+    private int serviceTime;
+    private int startTime;
+    private int endTime;
+    private int TAT;
+    private double normTAT;
+    private int waitTime;
+    private int serviceTimeNeeded;
 
-    public void setServicetimeneeded(int i) {
-        servicetimeneeded = i;
+    public void setServiceTimeNeeded(int i) {
+        serviceTimeNeeded = i;
     }
 
-    public int getServicetimeNeeded() {
-        return this.servicetimeneeded;
+    public int getServiceTimeNeeded() {
+        return this.serviceTimeNeeded;
     }
 
-    public void setEndtime(int endtime) {
-        this.endtime = endtime;
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
     }
 
-    public void setTat(int tat) {
-        this.tat = tat;
+    public void setTAT(int TAT) {
+        this.TAT = TAT;
     }
 
-    public void setNormtat(int normtat) {
-        this.normtat = normtat;
+    public void setNormTAT(int normTAT) {
+        this.normTAT = normTAT;
     }
 
-    public void setWaittime(int waittime) {
-        this.waittime = waittime;
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
     }
 
-    public int getEndtime() {
-        return endtime;
+    public int getEndTime() {
+        return endTime;
     }
 
-    public int getTat() {
-        return tat;
+    public int getTAT() {
+        return TAT;
     }
 
-    public double getNormtat() {
-        return normtat;
+    public double getNormTAT() {
+        return normTAT;
     }
 
-    public int getWaittime() {
-        return waittime;
+    public int getWaitTime() {
+        return waitTime;
     }
 
-    public int getArrivaltime() {
-        return arrivaltime;
+    public int getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setArrivaltime(int arrivaltime) {
-        this.arrivaltime = arrivaltime;
+    public void setArrivalTime(int arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
-    public int getServicetime() {
-        return servicetime;
+    public int getServiceTime() {
+        return serviceTime;
     }
 
-    public void setServicetime(int servicetime) {
-        this.servicetime = servicetime;
+    public void setServiceTime(int serviceTime) {
+        this.serviceTime = serviceTime;
     }
 
     public int getId() {
@@ -77,15 +77,15 @@ public class Process implements Cloneable, Comparable {
 
     public Process(int id, int arrivaltime, int servicetime) {
         this.id = id;
-        this.arrivaltime = arrivaltime;
-        this.servicetime = servicetime;
-        this.servicetimeneeded = servicetime;
+        this.arrivalTime = arrivaltime;
+        this.serviceTime = servicetime;
+        this.serviceTimeNeeded = servicetime;
     }
 
     public Process(Process p) {
-        this.arrivaltime = p.arrivaltime;
-        this.servicetime = p.servicetime;
-        this.servicetimeneeded = p.servicetimeneeded;
+        this.arrivalTime = p.arrivalTime;
+        this.serviceTime = p.serviceTime;
+        this.serviceTimeNeeded = p.serviceTimeNeeded;
         this.id = p.id;
     }
 
@@ -93,36 +93,28 @@ public class Process implements Cloneable, Comparable {
         this.id = id;
     }
 
-    public void setarrivaltime(int arrivaltime) {
-        this.arrivaltime = arrivaltime;
-    }
-
-    public void setservicetime(int servicetime) {
-        this.servicetime = servicetime;
-    }
-
     public int getStartTime() {
-        return this.starttime;
+        return this.startTime;
     }
 
-    public void verminder(int i) {
-        this.servicetime -= i;
+    public void decreaseServiceTime(int i) {
+        this.serviceTime -= i;
     }
 
     @Override
     public int compareTo(Object o) {
         Process p = (Process) o;
-        return this.servicetimeneeded < p.servicetimeneeded ? -1 : 1;
+        return this.serviceTimeNeeded < p.serviceTimeNeeded ? -1 : 1;
     }
 
     public void calculate() {
-        this.tat = (endtime - arrivaltime);
-        this.normtat = (double) this.tat / servicetimeneeded;
-        this.waittime = endtime - arrivaltime - servicetimeneeded;
+        this.TAT = (endTime - arrivalTime);
+        this.normTAT = (double) this.TAT / serviceTimeNeeded;
+        this.waitTime = endTime - arrivalTime - serviceTimeNeeded;
     }
 
     public void setStartTime(int i) {
-        this.starttime = i;
+        this.startTime = i;
     }
 
 }

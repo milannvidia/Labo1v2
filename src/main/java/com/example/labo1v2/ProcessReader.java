@@ -49,11 +49,11 @@ public class ProcessReader {
                             p.setId(Integer.parseInt(e.getTextContent()));
                         }
                         if (e.getNodeName().equals("arrivaltime")) {
-                            p.setarrivaltime(Integer.parseInt(e.getTextContent()));
+                            p.setArrivalTime(Integer.parseInt(e.getTextContent()));
                         }
                         if (e.getNodeName().equals( "servicetime")) {
-                            p.setservicetime(Integer.parseInt(e.getTextContent()));
-                            p.setServicetimeneeded(p.getServicetime());
+                            p.setServiceTime(Integer.parseInt(e.getTextContent()));
+                            p.setServiceTimeNeeded(p.getServiceTime());
                             processen.add(p);
                         }
                     }

@@ -25,33 +25,33 @@ public class RR extends Scheduler{
             Process p;
             if (!q.isEmpty() && waitingQueue.isEmpty()) {
                 p = q.poll();
-                count = p.getArrivaltime();
+                count = p.getArrivalTime();
                 p.setStartTime(count);
             } else {
                 p = waitingQueue.poll();
             }
 
-            if (p.getServicetime() <= delta) {
-                count += p.getServicetime();
-                while (!q.isEmpty() && q.peek().getArrivaltime() <= count) {
+            if (p.getServiceTime() <= delta) {
+                count += p.getServiceTime();
+                while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
                     Process temp = q.poll();
                     temp.setStartTime(count);
                     waitingQueue.add(temp);
                 }
-                p.setEndtime(count);
+                p.setEndTime(count);
                 p.calculate();
                 result.add(p);
-                waittime += p.getWaittime();
-                normtat += p.getNormtat();
-                tat += p.getTat();
+                waittime += p.getWaitTime();
+                normtat += p.getNormTAT();
+                tat += p.getTAT();
             } else {
                 count += delta;
-                while (!q.isEmpty() && q.peek().getArrivaltime() <= count) {
+                while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
                     Process temp = q.poll();
                     temp.setStartTime(count);
                     waitingQueue.add(temp);
                 }
-                p.setservicetime(p.getServicetime() - delta);
+                p.setServiceTime(p.getServiceTime() - delta);
                 waitingQueue.add(p);
             }
         }

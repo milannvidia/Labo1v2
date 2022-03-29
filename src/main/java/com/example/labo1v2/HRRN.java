@@ -6,9 +6,9 @@ import java.util.Queue;
 //Highest Response Ratio Next
 public class HRRN extends Scheduler{
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> para) {
+    public PriorityQueue<Process> schedule(Queue<Process> queue) {
         Queue<Process> q = new LinkedList<>();
-        for (Process p : para) {
+        for (Process p : queue) {
             q.add(new Process(p));
         }
         Queue<Process> waitingQueue = new LinkedList<>();
@@ -16,45 +16,45 @@ public class HRRN extends Scheduler{
         int count = 0;
         Process p;
         while (!q.isEmpty() || !waitingQueue.isEmpty()) {
-            while (!q.isEmpty() && q.peek().getArrivaltime() <= count) {
+            while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
                 Process temp = q.poll();
                 temp.setStartTime(count);
                 waitingQueue.add(temp);
             }
             Process temp = new Process();
             if (!waitingQueue.isEmpty()) {
-                double largestTat = waitingQueue.peek().getNormtat();
+                double largestTat = waitingQueue.peek().getNormTAT();
                 for (Process process : waitingQueue) {
-                    process.setEndtime(count + process.getServicetime());
+                    process.setEndTime(count + process.getServiceTime());
                     process.calculate();
-                    if (largestTat < process.getNormtat()) {
+                    if (largestTat < process.getNormTAT()) {
                         temp = process;
-                        largestTat = process.getNormtat();
+                        largestTat = process.getNormTAT();
                     }
                 }
                 waitingQueue.remove(temp);
                 result.add(temp);
-                waittime += temp.getWaittime();
-                normtat += temp.getNormtat();
-                tat += temp.getTat();
+                waittime += temp.getWaitTime();
+                normtat += temp.getNormTAT();
+                tat += temp.getTAT();
             } else {
                 temp = q.poll();
-                count = temp.getArrivaltime();
+                count = temp.getArrivalTime();
                 temp.setStartTime(count);
-                temp.setEndtime(count + temp.getServicetime());
+                temp.setEndTime(count + temp.getServiceTime());
                 temp.calculate();
                 result.add(temp);
-                waittime += temp.getWaittime();
-                normtat += temp.getNormtat();
-                tat += temp.getTat();
+                waittime += temp.getWaitTime();
+                normtat += temp.getNormTAT();
+                tat += temp.getTAT();
             }
 
-            count += temp.getServicetime();
+            count += temp.getServiceTime();
         }
 
-        waittime = waittime / para.size();
-        normtat = normtat / para.size();
-        tat = tat / para.size();
+        waittime = waittime / queue.size();
+        normtat = normtat / queue.size();
+        tat = tat / queue.size();
 
         System.out.println("Highest response ratio next");
         System.out.println("De gemiddelde wachttijd is: " + waittime);

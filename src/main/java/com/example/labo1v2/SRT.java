@@ -5,59 +5,59 @@ import java.util.Queue;
 //shortest Remaining Time
 public class SRT extends Scheduler {
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> input) {
-        Queue<Process> que = new LinkedList<>();
-        for (Process p : input) {
-            que.add(new Process(p));
+    public PriorityQueue<Process> schedule(Queue<Process> q) {
+        Queue<Process> queue = new LinkedList<>();
+        for (Process p : q) {
+            queue.add(new Process(p));
         }
         PriorityQueue<Process> finishedProcesses = new PriorityQueue<>();
-        PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10,(a, b)->a.getServicetime()-b.getServicetime());
-        PriorityQueue<Process> currentProcess = new PriorityQueue<>();
-        Process temp;
+        PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10,(a, b)->a.getServiceTime()-b.getServiceTime());
+        PriorityQueue<Process> currentProcesses = new PriorityQueue<>();
+        Process current;
 
         int count = 0;
 
-        while(finishedProcesses.size()!=input.size()){
-            if(!currentProcess.isEmpty()){
-                temp=currentProcess.peek();
-                temp.verminder(1);
-                if (temp.getServicetime()==0){
-                    temp=currentProcess.poll();
-                    temp.setEndtime(count);
-                    temp.calculate();
+        while(finishedProcesses.size()!=q.size()){
+            if(!currentProcesses.isEmpty()){
+                current=currentProcesses.peek();
+                current.decreaseServiceTime(1);
+                if (current.getServiceTime()==0){
+                    current=currentProcesses.poll();
+                    current.setEndTime(count);
+                    current.calculate();
 
-                    finishedProcesses.add(temp);
-                    waittime += temp.getWaittime();
-                    normtat += temp.getNormtat();
-                    tat += temp.getTat();
+                    finishedProcesses.add(current);
+                    waittime += current.getWaitTime();
+                    normtat += current.getNormTAT();
+                    tat += current.getTAT();
                 }
             }
-            while(que.peek() != null && que.peek().getArrivaltime()<=count)
-                waitingProcesses.add(que.poll());
-            if(currentProcess.isEmpty() && !waitingProcesses.isEmpty()){
-                temp=waitingProcesses.poll();
-                temp.setStartTime(count);
-                currentProcess.add(temp);
+            while(queue.peek() != null && queue.peek().getArrivalTime()<=count)
+                waitingProcesses.add(queue.poll());
+            if(currentProcesses.isEmpty() && !waitingProcesses.isEmpty()){
+                current=waitingProcesses.poll();
+                current.setStartTime(count);
+                currentProcesses.add(current);
 
-            } else if (!currentProcess.isEmpty() && !waitingProcesses.isEmpty()){
-                temp=currentProcess.peek();
-                if(temp.getServicetimeNeeded()>waitingProcesses.peek().getServicetimeNeeded()){
-                    temp=currentProcess.poll();
+            } else if (!currentProcesses.isEmpty() && !waitingProcesses.isEmpty()){
+                current=currentProcesses.peek();
+                if(current.getServiceTimeNeeded()>waitingProcesses.peek().getServiceTimeNeeded()){
+                    current=currentProcesses.poll();
                     Process p=waitingProcesses.peek();
                     if(p.getStartTime()==0)
                         p.setStartTime(count);
 
-                    currentProcess.add(waitingProcesses.poll());
-                    waitingProcesses.add(temp);
+                    currentProcesses.add(waitingProcesses.poll());
+                    waitingProcesses.add(current);
                 }
             }
 
             count++;
 
         }
-        waittime = waittime / input.size();
-        normtat = normtat / input.size();
-        tat = tat / input.size();
+        waittime = waittime / q.size();
+        normtat = normtat / q.size();
+        tat = tat / q.size();
 
         StringBuffer sb = new StringBuffer();
 

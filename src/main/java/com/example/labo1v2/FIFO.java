@@ -4,9 +4,9 @@ import java.util.*;
 //First Come First Serve
 public class FIFO extends Scheduler{
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> para) throws NullPointerException {
+    public PriorityQueue<Process> schedule(Queue<Process> q) throws NullPointerException {
         Queue<Process> queue = new LinkedList<>();
-        for (Process process : para) {
+        for (Process process : q) {
             queue.add(new Process(process));
         }
 
@@ -17,31 +17,31 @@ public class FIFO extends Scheduler{
 
         while (!queue.isEmpty()) {
             temp = queue.poll();
-            if (count < temp.getArrivaltime()) {
-                count = temp.getArrivaltime() + temp.getServicetime();
-                temp.setStartTime(temp.getArrivaltime());
-                temp.setEndtime(count);
+            if (count < temp.getArrivalTime()) {
+                count = temp.getArrivalTime() + temp.getServiceTime();
+                temp.setStartTime(temp.getArrivalTime());
+                temp.setEndTime(count);
                 temp.calculate(); // met deze methode ga je in het process zelf de waarden gaan uitrekenen
                 result.add(temp);
-                waittime += temp.getWaittime();
-                normtat += temp.getNormtat();
-                tat += temp.getTat();
+                waittime += temp.getWaitTime();
+                normtat += temp.getNormTAT();
+                tat += temp.getTAT();
             } else {
                 temp.setStartTime(count);
-                count += temp.getServicetime();
-                temp.setEndtime(count);
+                count += temp.getServiceTime();
+                temp.setEndTime(count);
                 temp.calculate();
                 result.add(temp);
-                waittime += temp.getWaittime();
-                normtat += temp.getNormtat();
-                tat += temp.getTat();
+                waittime += temp.getWaitTime();
+                normtat += temp.getNormTAT();
+                tat += temp.getTAT();
             }
 
         }
 
-        waittime = waittime / para.size();
-        normtat = normtat / para.size();
-        tat = tat / para.size();
+        waittime = waittime / q.size();
+        normtat = normtat / q.size();
+        tat = tat / q.size();
 
         return result;
     }

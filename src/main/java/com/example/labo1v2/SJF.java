@@ -7,39 +7,39 @@ import java.util.Queue;
 //Shortest Job First
 public class SJF extends Scheduler{
     @Override
-    public PriorityQueue<Process> schedule(Queue<Process> input){
+    public PriorityQueue<Process> schedule(Queue<Process> q){
         Queue<Process> queue =new LinkedList<>();
 
-        for (Process p: input){
+        for (Process p: q){
             queue.add(new Process(p));
         }
 
         PriorityQueue<Process> finishedProcesses = new PriorityQueue<>();
-        PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10,(a, b)->a.getServicetime()-b.getServicetime());
+        PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10,(a, b)->a.getServiceTime()-b.getServiceTime());
 
         Process temp;
         int count=0;
 
-        while (finishedProcesses.size() != input.size()){
-            while (queue.peek() != null && queue.peek().getArrivaltime()<=count)
+        while (finishedProcesses.size() != q.size()){
+            while (queue.peek() != null && queue.peek().getArrivalTime()<=count)
                 waitingProcesses.add(queue.poll());
                 if (!waitingProcesses.isEmpty()) {
                     temp = waitingProcesses.poll();
                     temp.setStartTime(count);
-                    count += temp.getServicetime();
-                    temp.setEndtime(count);
+                    count += temp.getServiceTime();
+                    temp.setEndTime(count);
                     temp.calculate();
                     finishedProcesses.add(temp);
-                    waittime += temp.getWaittime();
-                    normtat += temp.getNormtat();
-                    tat += temp.getTat();
+                    waittime += temp.getWaitTime();
+                    normtat += temp.getNormTAT();
+                    tat += temp.getTAT();
                 }else{
                     count++;
                 }
             }
-            waittime=waittime/input.size();
-            normtat=normtat/ input.size();
-            tat=tat/ input.size();
+            waittime=waittime/q.size();
+            normtat=normtat/ q.size();
+            tat=tat/ q.size();
             StringBuffer sb=new StringBuffer();
             sb.append("Glob parameters SJF ");
             sb.append(waittime + " " + normtat + " " + tat + " ");

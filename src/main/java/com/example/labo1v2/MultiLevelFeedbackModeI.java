@@ -6,9 +6,9 @@ import java.util.Queue;
 
 public class MultiLevelFeedbackModeI extends Scheduler{
     public void update(Process temp) {
-        waittime += temp.getWaittime();
-        normtat += temp.getNormtat();
-        tat += temp.getTat();
+        waittime += temp.getWaitTime();
+        normtat += temp.getNormTAT();
+        tat += temp.getTAT();
     }
 
     @Override
@@ -27,65 +27,65 @@ public class MultiLevelFeedbackModeI extends Scheduler{
             Process temp = new Process();
             if (queue1.isEmpty() && queue2.isEmpty() && queue3.isEmpty() && queue4.isEmpty() && !q.isEmpty()) {
                 temp = q.poll();
-                count = temp.getArrivaltime();
-                temp.setarrivaltime(count);
+                count = temp.getArrivalTime();
+                temp.setArrivalTime(count);
                 queue1.add(temp);
             }
-            while (!q.isEmpty() && q.peek().getArrivaltime() <= count) {
+            while (!q.isEmpty() && q.peek().getArrivalTime() <= count) {
                 temp = q.poll();
                 temp.setStartTime(count);
                 queue1.add(temp);
             }
             if (!queue1.isEmpty()) {
                 temp = queue1.poll();
-                if (temp.getServicetime() <= 1) {
+                if (temp.getServiceTime() <= 1) {
                     count += 1;
-                    temp.setEndtime(count);
+                    temp.setEndTime(count);
                     temp.calculate();
                     result.add(temp);
                     update(temp);
                 } else {
                     count += 1;
-                    temp.verminder(1);
+                    temp.decreaseServiceTime(1);
                     queue2.add(temp);
                 }
             } else if (!queue2.isEmpty()) {
                 temp = queue2.poll();
-                if (temp.getServicetime() <= 2) {
-                    count += temp.getServicetime();
-                    temp.setEndtime(count);
+                if (temp.getServiceTime() <= 2) {
+                    count += temp.getServiceTime();
+                    temp.setEndTime(count);
                     temp.calculate();
                     result.add(temp);
                     update(temp);
                 } else {
                     count += 2;
-                    temp.verminder(2);
+                    temp.decreaseServiceTime(2);
                     queue3.add(temp);
                 }
             } else if (!queue3.isEmpty()) {
                 temp = queue3.poll();
-                if (temp.getServicetime() <= 3) {
-                    count += temp.getServicetime();
-                    temp.setEndtime(count);
+                if (temp.getServiceTime() <= 3) {
+                    count += temp.getServiceTime();
+                    temp.setEndTime(count);
                     temp.calculate();
                     result.add(temp);
                     update(temp);
                 } else {
                     count += 3;
-                    temp.verminder(3);
+                    temp.decreaseServiceTime(3);
                     queue4.add(temp);
                 }
             } else if (!queue4.isEmpty()) {
                 temp = queue4.poll();
-                if (temp.getServicetime() <= 4) {
-                    count += temp.getServicetime();
-                    temp.setEndtime(count);
+                if (temp.getServiceTime() <= 4) {
+                    count += temp.getServiceTime();
+                    temp.setEndTime(count);
                     temp.calculate();
                     result.add(temp);
                     update(temp);
                 } else {
                     count += 4;
-                    temp.verminder(4);
+                    temp.decreaseServiceTime(4);
                     queue4.add(temp);
                 }
             }
