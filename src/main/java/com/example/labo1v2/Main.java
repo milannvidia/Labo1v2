@@ -86,6 +86,10 @@ public class Main extends Application {
         series1_3.setName("HRRN");
         XYChart.Series series1_4 = new XYChart.Series();
         series1_4.setName("MultilevelFeedback");
+        XYChart.Series series1_5 = new XYChart.Series();
+        series1_4.setName("SJF");
+        XYChart.Series series1_6 = new XYChart.Series();
+        series1_4.setName("SRT");
         XYChart.Series series2_1 = new XYChart.Series();
         series2_1.setName("FIFO");
         XYChart.Series series2_2 = new XYChart.Series();
@@ -94,6 +98,10 @@ public class Main extends Application {
         series2_3.setName("HRRN");
         XYChart.Series series2_4 = new XYChart.Series();
         series2_4.setName("Multilevelfeedback");
+        XYChart.Series series2_5 = new XYChart.Series();
+        series2_4.setName("SJF");
+        XYChart.Series series2_6 = new XYChart.Series();
+        series2_4.setName("SRT");
         XYChart.Series series3_1 = new XYChart.Series();
         series3_1.setName("FIFO");
         XYChart.Series series3_2 = new XYChart.Series();
@@ -102,6 +110,10 @@ public class Main extends Application {
         series3_3.setName("HRRN");
         XYChart.Series series3_4 = new XYChart.Series();
         series3_4.setName("Multilevelfeedback");
+        XYChart.Series series3_5 = new XYChart.Series();
+        series3_4.setName("SJF");
+        XYChart.Series series3_6 = new XYChart.Series();
+        series3_4.setName("SRT");
         XYChart.Series series4_1 = new XYChart.Series();
         series4_1.setName("FIFO");
         XYChart.Series series4_2 = new XYChart.Series();
@@ -110,6 +122,10 @@ public class Main extends Application {
         series4_3.setName("HRRN");
         XYChart.Series series4_4 = new XYChart.Series();
         series4_4.setName("Multilevelfeedback");
+        XYChart.Series series4_5 = new XYChart.Series();
+        series4_4.setName("SJF");
+        XYChart.Series series4_6 = new XYChart.Series();
+        series4_4.setName("SRT");
         XYChart.Series series5_1 = new XYChart.Series();
         series5_1.setName("FIFO");
         XYChart.Series series5_2 = new XYChart.Series();
@@ -118,6 +134,10 @@ public class Main extends Application {
         series5_3.setName("HRRN");
         XYChart.Series series5_4 = new XYChart.Series();
         series5_4.setName("Multilevelfeedback");
+        XYChart.Series series5_5 = new XYChart.Series();
+        series5_4.setName("SJF");
+        XYChart.Series series5_6 = new XYChart.Series();
+        series5_4.setName("SRT");
         XYChart.Series series6_1 = new XYChart.Series();
         series6_1.setName("FIFO");
         XYChart.Series series6_2 = new XYChart.Series();
@@ -126,6 +146,10 @@ public class Main extends Application {
         series6_3.setName("HRRN");
         XYChart.Series series6_4 = new XYChart.Series();
         series6_4.setName("Multilevelfeedback");
+        XYChart.Series series6_5 = new XYChart.Series();
+        series6_4.setName("SJF");
+        XYChart.Series series6_6 = new XYChart.Series();
+        series6_4.setName("SRT");
 
         ProcessReader fact = new ProcessReader();
         Queue<Process> processen1 = fact.leesProcessen("50000");
@@ -219,10 +243,54 @@ public class Main extends Application {
             amount++;
         }
 
+        Scheduler sjf = new SJF();
+        PriorityQueue<Process> shortestJobFirst = sjf.schedule(processen2);
+
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestJobFirst.isEmpty()) {
+            process = shortestJobFirst.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_5.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_5.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
+        Scheduler srt = new SRT();
+        PriorityQueue<Process> shortestRemainingTime = srt.schedule(processen2);
+
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestRemainingTime.isEmpty()) {
+            process = shortestRemainingTime.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series1_6.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series2_6.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
         double[] fcfs1 = fifo.getParameters();
         double[] rr1 = rr.getParameters();
         double[] hrrn1 = hrrn.getParameters();
         double[] mlfb1 = mlfb.getParameters();
+        double[] sjf1 = sjf.getParameters();
+        double[] srt1 = srt.getParameters();
 
 
         firstinfirstout = fifo.schedule(processen3);
@@ -305,10 +373,51 @@ public class Main extends Application {
             amount++;
         }
 
-        double[] fcfs12 = fifo.getParameters();
+        shortestJobFirst = sjf.schedule(processen3);
+
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestJobFirst.isEmpty()) {
+            process = shortestJobFirst.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_5.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_5.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
+        shortestRemainingTime = srt.schedule(processen3);
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestRemainingTime.isEmpty()) {
+            process = shortestRemainingTime.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series3_6.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series4_6.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
+        double[] fifo2 = fifo.getParameters();
         double[] rr2 = rr.getParameters();
         double[] hrrn2 = hrrn.getParameters();
         double[] mlfb2 = mlfb.getParameters();
+        double[] sjf2 = sjf.getParameters();
+        double[] srt2 = srt.getParameters();
 
 
 
@@ -392,16 +501,60 @@ public class Main extends Application {
             amount++;
         }
 
-        double[] fcfs3 = fifo.getParameters();
+        shortestJobFirst = sjf.schedule(processen1);
+
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestJobFirst.isEmpty()) {
+            process = shortestJobFirst.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_5.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_5.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
+        shortestRemainingTime = srt.schedule(processen1);
+
+        normTAT = 0;
+        amount = 0;
+        waitTime = 0;
+        while (!shortestRemainingTime.isEmpty()) {
+            process = shortestRemainingTime.poll();
+            normTAT += process.getNormTAT();
+            waitTime += process.getWaitTime();
+            if (amount % procentSize == 0 && amount != 0) {
+                normTAT = normTAT / procentSize;
+                waitTime = waitTime / procentSize;
+                series5_6.getData().add(new XYChart.Data(amount / procentSize, normTAT));
+                series6_6.getData().add(new XYChart.Data(amount / procentSize, waitTime));
+                normTAT = 0;
+                waitTime = 0;
+            }
+            amount++;
+        }
+
+        double[] fifo3 = fifo.getParameters();
         double[] rr3 = rr.getParameters();
         double[] hrrn3 = hrrn.getParameters();
         double[] mlfb3 = mlfb.getParameters();
+        double[] sjf3 = sjf.getParameters();
+        double[] srt3 = srt.getParameters();
 
 
-        Label fcfs11 = new Label("First first served /10000");
-        Label rr11 = new Label("Round robin /10000");
-        Label hrrn11 = new Label("Highest response ratio next /10000");
-        Label mlfb11 = new Label("Multilevel feedback /10000");
+        Label fifo1_1 = new Label("FIFO /10000");
+        Label rr1_1 = new Label("RR /10000");
+        Label hrrn1_1 = new Label("HRRN /10000");
+        Label mlfb1_1 = new Label("MLFB /10000");
+        Label sjf1_1 = new Label("SJF /10000");
+        Label srt1_1 = new Label("SRT /10000");
 
         Label gemomloopfcfs = new Label();
         Label gemGenomloopfcfs = new Label();
@@ -435,10 +588,28 @@ public class Main extends Application {
         gemGenomloopmlfb.setText(String.valueOf(mlfb1[1]));
         gemWaitmlfb.setText(String.valueOf(mlfb1[2]));
 
+        Label gemomloopsjf = new Label();
+        Label gemGenomloopsjf = new Label();
+        Label gemWaitsjf = new Label();
+
+        gemomloopsjf.setText(String.valueOf(sjf1[0]));
+        gemGenomloopsjf.setText(String.valueOf(sjf1[1]));
+        gemWaitsjf.setText(String.valueOf(sjf1[2]));
+
+        Label gemomloopsrt = new Label();
+        Label gemGenomloopsrt = new Label();
+        Label gemWaitsrt = new Label();
+
+        gemomloopsrt.setText(String.valueOf(srt1[0]));
+        gemGenomloopsrt.setText(String.valueOf(srt1[1]));
+        gemWaitsrt.setText(String.valueOf(srt1[2]));
+
         Label white = new Label(" ");
         Label white1 = new Label(" ");
         Label white2 = new Label(" ");
         Label white3 = new Label (" ");
+        Label white4 = new Label (" ");
+        Label white5 = new Label (" ");
 
         Label legende1 = new Label("Gemiddelde omlooptijd");
         Label legende2 = new Label("Gemiddelde genormaliseerde omlooptijd");
@@ -449,7 +620,7 @@ public class Main extends Application {
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
         VBox labels = new VBox();
-        labels.getChildren().addAll(legende1, legende2, legende3, white3, fcfs11, gemomloopfcfs, gemGenomloopfcfs, gemWaitfcfs, white, rr11, gemomlooprr, gemGenomlooprr, gemWaitrr, white1,  hrrn11, gemomloophrrn, gemGenomloophrrn, gemWaithrrn, white2, mlfb11, gemomloopmlfb, gemGenomloopmlfb, gemWaitmlfb);
+        labels.getChildren().addAll(legende1, legende2, legende3, white3, fifo1_1, gemomloopfcfs, gemGenomloopfcfs, gemWaitfcfs, white, rr1_1, gemomlooprr, gemGenomlooprr, gemWaitrr, white1,  hrrn1_1, gemomloophrrn, gemGenomloophrrn, gemWaithrrn, white2, mlfb1_1, gemomloopmlfb, gemGenomloopmlfb, gemWaitmlfb, white4, sjf1_1, gemomloopsjf, gemGenomloopsjf, gemWaitsjf, white5, srt1_1, gemomloopsrt, gemGenomloopsrt, gemWaitsrt);
         hbox1.getChildren().addAll(lineChart3,lineChart1, lineChart5, labels);
         hbox2.getChildren().addAll(lineChart4, lineChart2, lineChart6);
 
@@ -459,12 +630,12 @@ public class Main extends Application {
         root.setCenter(vbox);
 
         Scene scene = new Scene(root, 1000, 800);
-        lineChart1.getData().addAll(series1_1, series1_2, series1_3, series1_4);
-        lineChart2.getData().addAll(series2_1, series2_2, series2_3, series2_4);
-        lineChart3.getData().addAll(series3_1, series3_2, series3_3, series3_4);
-        lineChart4.getData().addAll(series4_1, series4_2, series4_3, series4_4);
-        lineChart5.getData().addAll(series5_1, series5_2, series5_3, series5_4);
-        lineChart6.getData().addAll(series6_1, series6_2, series6_3, series6_4);
+        lineChart1.getData().addAll(series1_1, series1_2, series1_3, series1_4, series1_5, series1_6);
+        lineChart2.getData().addAll(series2_1, series2_2, series2_3, series2_4, series2_5, series2_6);
+        lineChart3.getData().addAll(series3_1, series3_2, series3_3, series3_4, series3_5, series3_6);
+        lineChart4.getData().addAll(series4_1, series4_2, series4_3, series4_4, series4_5, series4_6);
+        lineChart5.getData().addAll(series5_1, series5_2, series5_3, series5_4, series5_5, series5_6);
+        lineChart6.getData().addAll(series6_1, series6_2, series6_3, series6_4, series6_5, series6_6);
 
 
         stage.setScene(scene);
