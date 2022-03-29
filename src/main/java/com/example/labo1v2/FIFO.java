@@ -1,3 +1,5 @@
+package com.example.labo1v2;
+
 import java.util.*;
 //First Come First Serve
 public class FIFO extends Scheduler{

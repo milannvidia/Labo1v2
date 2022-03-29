@@ -1,3 +1,5 @@
+package com.example.labo1v2;
+
 public class Process implements Cloneable, Comparable {
 
     private int id;

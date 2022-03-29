@@ -1,3 +1,5 @@
+package com.example.labo1v2;
+
 import java.io.File;
 import java.io.IOException;
 

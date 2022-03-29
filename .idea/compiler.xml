@@ -13,4 +13,9 @@
       <module name="Labo1v2" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Labo1v2" options="--add-exports java.base/java=java" />
+    </option>
+  </component>
 </project>
