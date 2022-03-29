@@ -45,13 +45,13 @@ public class ProcessFactory {
                     Node n = children.item(i);
                     if (n.getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) n;
-                        if (e.getNodeName() == "pid") {
+                        if (e.getNodeName().equals("pid")) {
                             p.setId(Integer.parseInt(e.getTextContent()));
                         }
-                        if (e.getNodeName() == "arrivaltime") {
+                        if (e.getNodeName().equals("arrivaltime")) {
                             p.setarrivaltime(Integer.parseInt(e.getTextContent()));
                         }
-                        if (e.getNodeName() == "servicetime") {
+                        if (e.getNodeName().equals( "servicetime")) {
                             p.setservicetime(Integer.parseInt(e.getTextContent()));
                             p.setServicetimeneeded(p.getServicetime());
                             processen.add(p);
