@@ -412,15 +412,6 @@ public class Main extends Application {
             amount++;
         }
 
-        double[] fifo2 = fifo.getParameters();
-        double[] rr2 = rr.getParameters();
-        double[] hrrn2 = hrrn.getParameters();
-        double[] mlfb2 = mlfb.getParameters();
-        double[] sjf2 = sjf.getParameters();
-        double[] srt2 = srt.getParameters();
-
-
-
         firstinfirstout = fifo.schedule(processen1);
         normTAT = 0;
         amount = 0;
@@ -541,21 +532,6 @@ public class Main extends Application {
             amount++;
         }
 
-        double[] fifo3 = fifo.getParameters();
-        double[] rr3 = rr.getParameters();
-        double[] hrrn3 = hrrn.getParameters();
-        double[] mlfb3 = mlfb.getParameters();
-        double[] sjf3 = sjf.getParameters();
-        double[] srt3 = srt.getParameters();
-
-
-        Label fifo1_1 = new Label("FIFO /10000");
-        Label rr1_1 = new Label("RR /10000");
-        Label hrrn1_1 = new Label("HRRN /10000");
-        Label mlfb1_1 = new Label("MLFB /10000");
-        Label sjf1_1 = new Label("SJF /10000");
-        Label srt1_1 = new Label("SRT /10000");
-
         Label gemomloopfcfs = new Label();
         Label gemGenomloopfcfs = new Label();
         Label gemWaitfcfs = new Label();
@@ -604,23 +580,10 @@ public class Main extends Application {
         gemGenomloopsrt.setText(String.valueOf(srt1[1]));
         gemWaitsrt.setText(String.valueOf(srt1[2]));
 
-        Label white = new Label(" ");
-        Label white1 = new Label(" ");
-        Label white2 = new Label(" ");
-        Label white3 = new Label (" ");
-        Label white4 = new Label (" ");
-        Label white5 = new Label (" ");
-
-        Label legende1 = new Label("Gemiddelde omlooptijd");
-        Label legende2 = new Label("Gemiddelde genormaliseerde omlooptijd");
-        Label legende3 = new Label("Gemiddelde wachttijd");
-
-
         VBox vbox = new VBox();
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
         VBox labels = new VBox();
-        labels.getChildren().addAll(legende1, legende2, legende3, white3, fifo1_1, gemomloopfcfs, gemGenomloopfcfs, gemWaitfcfs, white, rr1_1, gemomlooprr, gemGenomlooprr, gemWaitrr, white1,  hrrn1_1, gemomloophrrn, gemGenomloophrrn, gemWaithrrn, white2, mlfb1_1, gemomloopmlfb, gemGenomloopmlfb, gemWaitmlfb, white4, sjf1_1, gemomloopsjf, gemGenomloopsjf, gemWaitsjf, white5, srt1_1, gemomloopsrt, gemGenomloopsrt, gemWaitsrt);
         hbox1.getChildren().addAll(lineChart3,lineChart1, lineChart5, labels);
         hbox2.getChildren().addAll(lineChart4, lineChart2, lineChart6);
 
