@@ -55,7 +55,7 @@ public class Main extends Application {
         x6.setLabel("Bedieningstijd");
 
         final LineChart<Number, Number> lineChart1 = new LineChart<Number, Number>(x, y);
-        lineChart1.setTitle("Genormaliseerde TAT in functie van bedieningstijd /20000");
+        lineChart1.setTitle("normTAT functie van bedieningstijd /20000");
         lineChart1.setCreateSymbols(false);
 
         final LineChart<Number, Number> lineChart2 = new LineChart<Number, Number>(x2, y2);
@@ -63,7 +63,7 @@ public class Main extends Application {
         lineChart2.setCreateSymbols(false);
 
         final LineChart<Number, Number> lineChart3 = new LineChart<Number, Number>(x3, y3);
-        lineChart3.setTitle("Genormaliseerde TAT in functie van bedieningstijd /10000");
+        lineChart3.setTitle("normTAT in functie van bedieningstijd /10000");
         lineChart3.setCreateSymbols(false);
 
         final LineChart<Number, Number> lineChart4 = new LineChart<Number, Number>(x4, y4);
@@ -71,7 +71,7 @@ public class Main extends Application {
         lineChart4.setCreateSymbols(false);
 
         final LineChart<Number, Number> lineChart5 = new LineChart<Number, Number>(x5, y5);
-        lineChart5.setTitle("Genormaliseerde TAT in functie van bedieningstijd /50000");
+        lineChart5.setTitle("normTAT in functie van bedieningstijd /50000");
         lineChart5.setCreateSymbols(false);
 
         final LineChart<Number, Number> lineChart6 = new LineChart<Number, Number>(x6, y6);
