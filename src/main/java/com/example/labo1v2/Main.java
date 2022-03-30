@@ -285,14 +285,6 @@ public class Main extends Application {
             amount++;
         }
 
-        double[] fcfs1 = fifo.getParameters();
-        double[] rr1 = rr.getParameters();
-        double[] hrrn1 = hrrn.getParameters();
-        double[] mlfb1 = mlfb.getParameters();
-        double[] sjf1 = sjf.getParameters();
-        double[] srt1 = srt.getParameters();
-
-
         firstinfirstout = fifo.schedule(processen3);
         normTAT = 0;
         amount = 0;
@@ -532,54 +524,6 @@ public class Main extends Application {
             amount++;
         }
 
-        Label gemomloopfcfs = new Label();
-        Label gemGenomloopfcfs = new Label();
-        Label gemWaitfcfs = new Label();
-
-        gemomloopfcfs.setText(String.valueOf(fcfs1[0]));
-        gemGenomloopfcfs.setText(String.valueOf(fcfs1[1]));
-        gemWaitfcfs.setText(String.valueOf(fcfs1[2]));
-
-        Label gemomlooprr = new Label();
-        Label gemGenomlooprr = new Label();
-        Label gemWaitrr = new Label();
-
-        gemomlooprr.setText(String.valueOf(rr1[0]));
-        gemGenomlooprr.setText(String.valueOf(rr1[1]));
-        gemWaitrr.setText(String.valueOf(rr1[2]));
-
-        Label gemomloophrrn = new Label();
-        Label gemGenomloophrrn = new Label();
-        Label gemWaithrrn = new Label();
-
-        gemomloophrrn.setText(String.valueOf(hrrn1[0]));
-        gemGenomloophrrn.setText(String.valueOf(hrrn1[1]));
-        gemWaithrrn.setText(String.valueOf(hrrn1[2]));
-
-        Label gemomloopmlfb = new Label();
-        Label gemGenomloopmlfb = new Label();
-        Label gemWaitmlfb = new Label();
-
-        gemomloopmlfb.setText(String.valueOf(mlfb1[0]));
-        gemGenomloopmlfb.setText(String.valueOf(mlfb1[1]));
-        gemWaitmlfb.setText(String.valueOf(mlfb1[2]));
-
-        Label gemomloopsjf = new Label();
-        Label gemGenomloopsjf = new Label();
-        Label gemWaitsjf = new Label();
-
-        gemomloopsjf.setText(String.valueOf(sjf1[0]));
-        gemGenomloopsjf.setText(String.valueOf(sjf1[1]));
-        gemWaitsjf.setText(String.valueOf(sjf1[2]));
-
-        Label gemomloopsrt = new Label();
-        Label gemGenomloopsrt = new Label();
-        Label gemWaitsrt = new Label();
-
-        gemomloopsrt.setText(String.valueOf(srt1[0]));
-        gemGenomloopsrt.setText(String.valueOf(srt1[1]));
-        gemWaitsrt.setText(String.valueOf(srt1[2]));
-
         VBox vbox = new VBox();
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
@@ -600,10 +544,8 @@ public class Main extends Application {
         lineChart5.getData().addAll(series5_1, series5_2, series5_3, series5_4, series5_5, series5_6);
         lineChart6.getData().addAll(series6_1, series6_2, series6_3, series6_4, series6_5, series6_6);
 
-
         stage.setScene(scene);
         stage.show();
 
     }
-
 }
